@@ -46,5 +46,12 @@ public class UserDao {
 	public User updateUser(User user) {
 		return userRepo.save(user);
 	}
+	
+	
+	
+	public User login(User user) {
+		return(userRepo.findByEmailAndPwd(user.getEmail(), user.getPwd()));
+		
+	}
 
 }

@@ -3,6 +3,7 @@ package com.clarivate.FoodApp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,14 @@ public class UserController {
 	@PutMapping("/users")
 	public ResponseStructure<User> updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<ResponseStructure<User>> login(@RequestBody User user){
+		System.out.println(user.getEmail());
+		
+		return userService.login(user);
+		
 	}
 
 }

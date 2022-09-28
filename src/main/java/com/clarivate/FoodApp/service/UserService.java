@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.clarivate.FoodApp.dao.ResponseStructure;
@@ -105,6 +106,28 @@ public class UserService {
 		}
 		return responseStructure;
 
+	}
+
+	public ResponseEntity<ResponseStructure<User>> login(User user) {
+		User user1 =userDao.login(user);
+		ResponseStructure<User> responseStructure=new ResponseStructure<User>();
+		
+		if(user1!=null)
+		{
+			responseStructure.setMsg("login success full");
+			responseStructure.setData(user1);
+			responseStructure.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.FOUND);
+			
+		}
+		else
+		{
+			responseStructure.setMsg("login failed");
+			//responseStructure.setData();
+			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());
+		}
+		return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.NOT_FOUND);
+		
 	}
 
 }
