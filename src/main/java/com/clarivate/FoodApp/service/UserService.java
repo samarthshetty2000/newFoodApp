@@ -116,8 +116,8 @@ public class UserService {
 		{
 			responseStructure.setMsg("login success full");
 			responseStructure.setData(user1);
-			responseStructure.setStatusCode(HttpStatus.FOUND.value());
-			return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.FOUND);
+			responseStructure.setStatusCode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.OK);
 			
 		}
 		else
@@ -125,8 +125,9 @@ public class UserService {
 			responseStructure.setMsg("login failed");
 			//responseStructure.setData();
 			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.NOT_FOUND);
+		
 		
 	}
 
