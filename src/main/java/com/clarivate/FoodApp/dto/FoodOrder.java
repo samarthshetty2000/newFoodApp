@@ -47,7 +47,7 @@ public class FoodOrder {
 	private User user;
 	
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="foodOrder",orphanRemoval=true)
 	private List<Item> item;
 	
 
