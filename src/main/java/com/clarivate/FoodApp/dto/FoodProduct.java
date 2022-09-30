@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "foodproduct")
@@ -25,7 +26,7 @@ public class FoodProduct {
 
 	@ManyToOne
 	@JoinColumn
-	@JsonIgnore
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Menu menu;
 
 	public Menu getMenu() {

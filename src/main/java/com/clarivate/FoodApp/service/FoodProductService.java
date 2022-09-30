@@ -94,11 +94,11 @@ public class FoodProductService {
 
 	}
 
-	public ResponseStructure<FoodProduct> updateFoodProduct(FoodProduct foodProduct) {
+	public ResponseStructure<FoodProduct> updateFoodProduct(FoodProduct foodProduct,int id) {
 		
 		ResponseStructure<FoodProduct> responseStructure = new ResponseStructure<FoodProduct>();
 		
-		FoodProduct foodProduct1 = foodProductDao.getFoodProductById(foodProduct.getId());
+		FoodProduct foodProduct1 = foodProductDao.getFoodProductById(id);
 		
 		if (foodProduct1 == null) {
 			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());

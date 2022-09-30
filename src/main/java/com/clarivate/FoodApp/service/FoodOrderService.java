@@ -10,6 +10,7 @@ import com.clarivate.FoodApp.dao.FoodOrderDao;
 import com.clarivate.FoodApp.dao.ResponseStructure;
 import com.clarivate.FoodApp.dao.UserDao;
 import com.clarivate.FoodApp.dto.FoodOrder;
+import com.clarivate.FoodApp.dto.Item;
 import com.clarivate.FoodApp.dto.User;
 
 @Service
@@ -23,6 +24,12 @@ public class FoodOrderService {
 	UserDao userDao;
 
 	public ResponseStructure<FoodOrder> saveFoodOrder(FoodOrder foodOrder) {
+		int sum=0;
+		List<Item> items=foodOrder.getItem();
+		for(Item item : items) {
+			sum+=item.getPrice()*item.getQuantity();
+		}
+		foodOrder.setTotalPrice(sum);
 		
 		ResponseStructure<FoodOrder> responseStructure = new ResponseStructure<FoodOrder>();
 		User user=userDao.getUserById(foodOrder.getUser().getId());
@@ -93,11 +100,11 @@ public class FoodOrderService {
 
 	}
 
-	public ResponseStructure<FoodOrder> updateFoodOrder(FoodOrder foodOrder) {
+	public ResponseStructure<FoodOrder> updateFoodOrder(FoodOrder foodOrder,int id) {
 		
 		ResponseStructure<FoodOrder> responseStructure = new ResponseStructure<FoodOrder>();
 		
-		FoodOrder foodOrder1 = foodOrderDao.getFoodOrderById(foodOrder.getId());
+		FoodOrder foodOrder1 = foodOrderDao.getFoodOrderById(id);
 		
 		if (foodOrder1 == null) {
 			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());

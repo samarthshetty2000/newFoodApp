@@ -44,11 +44,10 @@ public class FoodOrder {
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn
-	
 	private User user;
 	
 	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="foodOrder")
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Item> item;
 	
 

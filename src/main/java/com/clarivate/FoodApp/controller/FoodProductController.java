@@ -44,8 +44,8 @@ public class FoodProductController {
 
 	}
 
-	@PutMapping("/foodProduct")
-	public ResponseStructure<FoodProduct> updateFoodProduct(@RequestBody FoodProduct foodProduct) {
-		return foodProductService.updateFoodProduct(foodProduct);
+	@PutMapping("/foodProduct/{id}")
+	public ResponseStructure<FoodProduct> updateFoodProduct(@RequestBody FoodProduct foodProduct ,@PathVariable int id) {
+		return foodProductService.updateFoodProduct(foodProduct,id);
 	}
 }

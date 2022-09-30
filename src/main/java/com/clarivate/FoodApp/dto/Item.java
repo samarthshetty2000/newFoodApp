@@ -1,5 +1,6 @@
 package com.clarivate.FoodApp.dto;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +21,9 @@ public class Item {
 	private int quantity;
 	private float price;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn
+	
 	FoodOrder foodOrder;
 
 	public FoodOrder getFoodOrder() {
