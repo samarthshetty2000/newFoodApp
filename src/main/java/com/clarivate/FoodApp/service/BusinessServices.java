@@ -13,18 +13,20 @@ public class BusinessServices{
 	@Autowired
     private JavaMailSender mailSender;
 	
-	 public void sendEmail() {
+	 public String sendEmail(float price,String to) {
 		 String from = "samarthshetty13@gmail.com";
-		 String to = "samarthshetty13@gmail.com";
+//		 String to = "samarthshetty13@gmail.com";
 		  
 		 SimpleMailMessage message = new SimpleMailMessage();
 		  
 		 message.setFrom(from);
 		 message.setTo(to);
-		 message.setSubject("This is a plain text email");
-		 message.setText("Hello guys! This is a plain text email.");
+		 message.setSubject("This is invoice of food order");
+		 message.setText("final Amount of your order is:"+ price);
 		  
 		 mailSender.send(message);
+		 
+		 return "Email sent";
 	    }
 
 }

@@ -1,5 +1,6 @@
 package com.clarivate.FoodApp.dto;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class FoodProduct {
 	private String availability;
 	private float price;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private Menu menu;

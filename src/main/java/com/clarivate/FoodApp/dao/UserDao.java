@@ -53,5 +53,9 @@ public class UserDao {
 		return(userRepo.findByEmailAndPwd(user.getEmail(), user.getPwd()));
 		
 	}
+	
+	public List<User> getAllUsersByRole(String role) {
+		return userRepo.findByRole(role);
+	}
 
 }

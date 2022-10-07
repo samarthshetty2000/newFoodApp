@@ -73,6 +73,10 @@ public class ItemService {
 		ResponseStructure<String> response = new ResponseStructure<String>();
 		
 		Item item = itemDao.getItembyId(id);
+		
+		FoodOrder foodorder=item.getFoodOrder();
+	    foodorder.setTotalPrice(foodorder.getTotalPrice()-item.getPrice()*item.getQuantity());
+		
 		if(item!=null) {
 			response.setStatusCode(HttpStatus.FOUND.value());
 			response.setMsg("Item is deleted");
@@ -85,16 +89,26 @@ public class ItemService {
 		return response;
 	}
 	
-	public ResponseStructure<Item> updateItem(Item item){
+	public ResponseStructure<Item> updateItem(Item item,int id){
 		
 		ResponseStructure<Item> response = new ResponseStructure<Item>();
 		
-		Item item2 = itemDao.getItembyId(item.getId());
+		Item item2 = itemDao.getItembyId(id);
+		
+		
+		float oldPrice=item2.getQuantity()*item2.getPrice();
+				
+		item2.setQuantity(item.getQuantity());
+		
+		float newPrice=item2.getQuantity()*item2.getPrice();
+		FoodOrder foodorder=item2.getFoodOrder();
+		foodorder.setTotalPrice(foodorder.getTotalPrice()-oldPrice+newPrice);
 		if(item2!=null) {
 			response.setStatusCode(HttpStatus.FOUND.value());
 			response.setMsg("Item data is updated");
-			response.setData(itemDao.updateItem(item));
-		} else {
+			response.setData(itemDao.updateItem(item2));
+		} 
+		else {
 			response.setStatusCode(HttpStatus.NOT_FOUND.value());
 			response.setMsg("Item not found");
 			response.setData(null);

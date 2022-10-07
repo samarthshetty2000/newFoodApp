@@ -50,4 +50,9 @@ public class FoodOrderController {
 	public ResponseStructure<FoodOrder> updateFoodOrder(@RequestBody FoodOrder foodOrder,@PathVariable int id) {
 		return foodOrderService.updateFoodOrder(foodOrder,id);
 	}
+	
+	@GetMapping("/orderdetails/{user_id}")
+	public ResponseStructure<List<FoodOrder>> getFoodOrderByStaffId(@PathVariable int user_id) {
+		return foodOrderService.getAllFoodOrdersDataByUserId(user_id);
+	}
 }

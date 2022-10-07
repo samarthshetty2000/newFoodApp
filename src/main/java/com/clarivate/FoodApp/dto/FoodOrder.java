@@ -1,10 +1,12 @@
 package com.clarivate.FoodApp.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -32,22 +36,26 @@ public class FoodOrder {
 	private String status;
 	private float totalPrice;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = ISO.DATE_TIME)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = ISO.DATE_TIME)
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+	
+	@CreationTimestamp
 	private LocalDateTime orderCreatedTime;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = ISO.DATE_TIME)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = ISO.DATE_TIME)
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+	
+	
+	@CreationTimestamp
 	private LocalDateTime orderDeliveryTime;
 
 	private String customerName;
 	private long contactNumber;
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	private User user;
 	
 	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="foodOrder",orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="foodOrder")
 	private List<Item> item;
 	
 
@@ -119,7 +127,6 @@ public class FoodOrder {
 	public User getUser() {
 		return user;
 	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -46,5 +46,12 @@ public class FoodOrderDao {
 	public FoodOrder updateFoodOrder(FoodOrder foodOrder) {
 		return foodOrderRepo.save(foodOrder);
 	}
+	
+	
+	public List<FoodOrder> getAllFoodOrdersDataByStaffId(int id) {
+		return foodOrderRepo.findByuser_id(id);
+	}
+
+	
 
 }

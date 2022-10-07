@@ -87,11 +87,12 @@ public class UserService {
 
 	}
 
-	public ResponseStructure<User> updateUser(User user) {
+	public ResponseStructure<User> updateUser(User user,int id) {
 		
 		ResponseStructure<User> responseStructure = new ResponseStructure<User>();
 		
-		User u1 = userDao.getUserById(user.getId());
+		User u1 = userDao.getUserById(id);
+		user.setPwd(u1.getPwd());
 		
 		if (u1 == null) {
 			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());
@@ -129,6 +130,23 @@ public class UserService {
 		}
 		
 		
+	}
+
+	public ResponseStructure<List<User>> getUserByrole(String role) {
+		// TODO Auto-generated method stub
+		ResponseStructure<List<User>> responseStructure = new ResponseStructure<List<User>>();
+	List<User> userList=userDao.getAllUsersByRole(role);
+
+		if (userList.isEmpty()) {
+			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			responseStructure.setMsg("No data present in the db");
+			responseStructure.setData(null);
+		} else {
+			responseStructure.setStatusCode(HttpStatus.FOUND.value());
+			responseStructure.setMsg("User Details");
+			responseStructure.setData(userList);
+		}
+		return responseStructure;
 	}
 
 }

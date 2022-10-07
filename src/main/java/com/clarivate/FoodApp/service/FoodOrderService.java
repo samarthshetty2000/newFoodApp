@@ -24,12 +24,13 @@ public class FoodOrderService {
 	UserDao userDao;
 
 	public ResponseStructure<FoodOrder> saveFoodOrder(FoodOrder foodOrder) {
-		int sum=0;
+//		int sum=0;
 		List<Item> items=foodOrder.getItem();
 		for(Item item : items) {
-			sum+=item.getPrice()*item.getQuantity();
+//			sum+=item.getPrice()*item.getQuantity();
+			item.setFoodOrder(foodOrder);
 		}
-		foodOrder.setTotalPrice(sum);
+//		foodOrder.setTotalPrice(sum);
 		
 		ResponseStructure<FoodOrder> responseStructure = new ResponseStructure<FoodOrder>();
 		User user=userDao.getUserById(foodOrder.getUser().getId());
@@ -120,4 +121,24 @@ public class FoodOrderService {
 		return responseStructure;
 
 	}
+	
+	public ResponseStructure<List<FoodOrder>> getAllFoodOrdersDataByUserId(int id) {
+
+		ResponseStructure<List<FoodOrder>> responseStructure = new ResponseStructure<List<FoodOrder>>();
+
+		List<FoodOrder> foodOrderList =  foodOrderDao.getAllFoodOrdersDataByStaffId(id);
+
+		if (foodOrderList.isEmpty()) {
+			responseStructure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			responseStructure.setMsg("No data present in the db");
+			responseStructure.setData(null);
+		} else {
+			responseStructure.setStatusCode(HttpStatus.FOUND.value());
+			responseStructure.setMsg("Food order Details");
+			responseStructure.setData(foodOrderList);
+		}
+		return responseStructure;
+	}
+	
+	
 }

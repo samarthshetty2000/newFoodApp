@@ -26,7 +26,7 @@ public class FoodAppApplication {
 	@SuppressWarnings("rawtypes")
 	List<VendorExtension> vendorExtensions = new ArrayList<VendorExtension>();
 
-	Contact contact = new Contact("Shishir", "https://thelens.clarivate.com/", "shishir@gmail.com");
+	Contact contact = new Contact("Samarth", "https://thelens.clarivate.com/", "samarthshetty13@gmail.com");
 
 	ApiInfo apiInfo = new ApiInfo("Food App", "Food app project", "snapshot-0.01", "https://iamafoodblog.com/", contact,
 			"www.foodblog.com", "terms and conditions", vendorExtensions);
